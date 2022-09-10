@@ -55,11 +55,11 @@ void ANest::SpawnAI()
 	Transform.SetRotation(GetActorQuat());
 	Transform.SetScale3D(FVector::ZeroVector);
 
-	SpawnedPawn = GetWorld()->SpawnActor<APawn>(AIToSpawn, Transform, SpawnParameters);
-	PlayScaleAnimation();
+	SpawnedPawn = GetWorld()->SpawnActor<APawn>(AiToSpawn, Transform, SpawnParameters);
+	PlaySpawnAnimation();
 }
 
-void ANest::PlayScaleAnimation()
+void ANest::PlaySpawnAnimation()
 {
 	if (!AnimationCurve)
 	{

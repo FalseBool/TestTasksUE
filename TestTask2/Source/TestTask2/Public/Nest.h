@@ -19,42 +19,40 @@ public:
 	void SpawnAI();
 
 	UPROPERTY(EditAnywhere, Category = GameplaySettings)
-	TSubclassOf<class APawn> AIToSpawn;
+	TSubclassOf<class APawn> AiToSpawn;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AudioSettings)
 	class USoundBase* SpawnSound;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = GameplaySettings)
-	class AActor* TargetDest;
+	class AActor* TargetDestination;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = GameplaySettings)
 	class UBehaviorTree* BehaviorTree;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UCurveFloat* AnimationCurve;
 protected:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void BeginPlay() override;
 
-	// Blackboard values setups by string key. Is should be done outside. It depends from passed Behaviour three.
-	UFUNCTION(BlueprintImplementableEvent)
-	void SetupBehaivour(APawn* target);
+	UFUNCTION()
+	virtual void EvaluateAnimation(float Value);
 
 	UFUNCTION()
-	void PlayScaleAnimation();
+	virtual void AnimationFinished();
 
-private:
+	UFUNCTION()
+	void PlaySpawnAnimation();
+
 	UPROPERTY()
 	APawn* SpawnedPawn;
 
 	UPROPERTY()
 	FTimeline AnimationTimeline;
 
-	UPROPERTY(EditAnywhere)
-	UCurveFloat* AnimationCurve;
-
-	UFUNCTION()
-	void EvaluateAnimation(float Value);
-
-	UFUNCTION()
-	void AnimationFinished();
+	// Blackboard values setuped by string key. Is should be done outside. It depends from passed Behaviour Tree.
+	UFUNCTION(BlueprintImplementableEvent)
+	void SetupBehaivour(APawn* target);
 };
