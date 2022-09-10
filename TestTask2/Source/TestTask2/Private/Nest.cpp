@@ -61,7 +61,7 @@ void ANest::SpawnAI()
 
 void ANest::PlayScaleAnimation()
 {
-	if (AnimationCurve == nullptr)
+	if (!AnimationCurve)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("AnimationCurve is not set!"));
 		return;
